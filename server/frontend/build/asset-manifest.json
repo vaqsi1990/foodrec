@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/static/css/main.9a05b78e.css",
+    "main.js": "/static/js/main.f64868ff.js",
+    "static/media/cooking-4tn4dfuhtkj7tt1x.jpg": "/static/media/cooking-4tn4dfuhtkj7tt1x.efe8f9ace43b0d02882e.jpg",
+    "static/media/Food-Logo-Graphics-1-70.jpg": "/static/media/Food-Logo-Graphics-1-70.96b2ee4ee3381b63d3ac.jpg",
+    "index.html": "/index.html",
+    "main.9a05b78e.css.map": "/static/css/main.9a05b78e.css.map",
+    "main.f64868ff.js.map": "/static/js/main.f64868ff.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.9a05b78e.css",
+    "static/js/main.f64868ff.js"
+  ]
+}
