@@ -21,25 +21,42 @@ exports.edit = async(req, res, next) => {
     res.json( await Food.findById(id) )
 }
 
-exports.editFood = async(req, res, next) => {
-    
-    const { token } = req.cookies;
-    const {
-     id, title,ingredients,addedPhotos,instructions,time,category, difficulty, calories, carbs, protein, fat
-      
-    } = req.body;
-    jwt.verify(token, "ILOVEANNA", {}, async (err, userData) => {
-        const placeDoc = await Food.findById(id) 
-       if(userData.id === placeDoc.owner.toString()) {
-        placeDoc.set({
-          
-            title,ingredients,instructions,time,photos:addedPhotos,category,difficulty, calories, carbs, protein, fat
-          })
-       await placeDoc.save()
-        res.json('ok')
-       }
-      });
-}
+exports.editFood = async (req, res, next) => {
+  const { token } = req.cookies;
+  const {
+      id, title, ingredients, addedPhotos, instructions, time, category, difficulty,
+      calories, carbs, protein, fat
+  } = req.body;
+
+  jwt.verify(token, "ILOVEANNA", {}, async (err, userData) => {
+      if (err) {
+          return res.status(401).json({ message: "Unauthorized" });
+      }
+
+      const placeDoc = await Food.findById(id);
+      if (!placeDoc) {
+          return res.status(404).json({ message: "Food item not found" });
+      }
+
+      if (userData.isAdmin) {
+          placeDoc.set({
+              title, ingredients, instructions, time, photos: addedPhotos, category,
+              difficulty, calories, carbs, protein, fat
+          });
+          await placeDoc.save();
+          res.json('ok');
+      } else if (userData.id === placeDoc.owner.toString()) {
+          placeDoc.set({
+              title, ingredients, instructions, time, photos: addedPhotos, category,
+              difficulty, calories, carbs, protein, fat
+          });
+          await placeDoc.save();
+          res.json('ok');
+      } else {
+          res.status(403).json({ message: "Forbidden" });
+      }
+  });
+};
 
 
 
